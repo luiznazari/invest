@@ -111,7 +111,7 @@ $ git config core.autocrlf true
 
 Para executar as aplicações, é necessário configurar as credenciais de acesso ao ambiente da AWS, **todas** as configurações estão presentes no **AWS SecretManager** e serão acessados ao executar alguma aplicação.
 
-Para este passo, você irá precisar de um acesso válido ao ambiente AWS da Cateno.
+Para este passo, você irá precisar de um acesso válido ao ambiente AWS.
 
 1. Logar no Single Sign-On da AWS, e obter as chaves para o conta em ambiente **Desenvolvimento** e gerar as credenciais de acesso:
 
