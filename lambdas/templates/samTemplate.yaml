@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Parameters:
+  Stage:
+    Type: String
+  Version:
+    Type: String
+
+Resources:
+  # :::: LAMBDA :::: #
+  StockAdd:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: !Sub '${Version}-Invest-Stock-Add'
+      Handler: app/request/stock-request.add
+      Runtime: nodejs12.x
+      CodeUri: ./../
+      MemorySize: 128
+      Timeout: 60
+      Role: !ImportValue InvestJobsLambdaRoleARN
+      ReservedConcurrentExecutions: 1

@@ -1,0 +1,10 @@
+# VSCode
+.vscode/*
+!.vscode/launch.json
+
+# Node
+node_modules
+.env
+
+# AWS
+.aws-sam
