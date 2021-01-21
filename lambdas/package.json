@@ -12,23 +12,23 @@
     "ações"
   ],
   "scripts": {
-    "lint": "eslint ./app/**/*.js --fix && eslint ./test/**/*.js --fix",
-    "test": "mocha ./test/**/*.js"
+    "lint": "eslint ./src/**/*.js --fix && eslint ./tests/**/*.js --fix",
+    "test": "npm run test:u && npm run test:i",
+    "test:u": "mocha ./test/unit/**/*.js",
+    "test:i": "mocha ./test/integration/**/*.js"
   },
   "dependencies": {
-    "aws-sdk": "^2.826.0",
-    "chai": "^4.2.0",
     "eslint": "^7.17.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
-    "mocha": "^8.2.1",
     "moment-timezone": "^0.5.32",
-    "node-fetch": "^2.6.1",
-    "save": "^2.4.0",
-    "save-dev": "0.0.1-security",
-    "sinon": "^9.2.3"
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0"
+    "aws-sdk": "^2.826.0",
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "sinon": "^9.2.3"
   }
 }

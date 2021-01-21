@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Invest - Lambdas &lt;&excl;-- omit in toc --&gt;</title>
+        <style>
+</style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="invest---lambdas-">Invest - Lambdas <!-- omit in toc --></h1>
+<p>Projeto para definição e construção de Lambdas do projeto Invest.</p>
+<p>Veja também:</p>
+<ul>
+<li><a href="CONTRIBUTING.html">Guia de Contribuição</a></li>
+</ul>
+<h2 id="aws">AWS</h2>
+<p>This project contains source code and supporting files for a serverless application that you can deploy with the AWS Serverless Application Model (AWS SAM) command line interface (CLI). It includes the following files and folders:</p>
+<ul>
+<li><code>src</code> - Code for the application's Lambda function.</li>
+<li><code>events</code> - Invocation events that you can use to invoke the function.</li>
+<li><code>test</code> - Unit tests for the application code.</li>
+<li><code>template.yml</code> - A template that defines the application's AWS resources.</li>
+</ul>
+<p>The application uses several AWS resources, including Lambda functions, an API Gateway API, and Amazon DynamoDB tables. These resources are defined in the <code>template.yml</code> file in this project. You can update the template to add AWS resources through the same deployment process that updates your application code.</p>
+<p>If you prefer to use an integrated development environment (IDE) to build and test your application, you can use the AWS Toolkit.
+The AWS Toolkit is an open-source plugin for popular IDEs that uses the AWS SAM CLI to build and deploy serverless applications on AWS. The AWS Toolkit also adds step-through debugging for Lambda function code.</p>
+<p>To get started, see the following:</p>
+<ul>
+<li><a href="https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html">PyCharm</a></li>
+<li><a href="https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html">IntelliJ</a></li>
+<li><a href="https://docs.aws.amazon.com/toolkit-for-vscode/latest/userguide/welcome.html">VS Code</a></li>
+<li><a href="https://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/welcome.html">Visual Studio</a></li>
+</ul>
+<h3 id="deploy-the-sample-application">Deploy the sample application</h3>
+<p>The AWS SAM CLI is an extension of the AWS CLI that adds functionality for building and testing Lambda applications. It uses Docker to run your functions in an Amazon Linux environment that matches Lambda. It can also emulate your application's build environment and API.</p>
+<p>To use the AWS SAM CLI, you need the following tools:</p>
+<ul>
+<li>AWS SAM CLI - <a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html">Install the AWS SAM CLI</a>.</li>
+<li>Node.js - <a href="https://nodejs.org/en/">Install Node.js 12</a>, including the npm package management tool.</li>
+<li>Docker - <a href="https://hub.docker.com/search/?type=edition&amp;offering=community">Install Docker community edition</a>.</li>
+</ul>
+<p>To build and deploy your application for the first time, run the following in your shell:</p>
+<pre><code class="language-bash"><div>sam build
+sam deploy --guided
+</div></code></pre>
+<p>The first command will build the source of your application. The second command will package and deploy your application to AWS, with a series of prompts:</p>
+<ul>
+<li><strong>Stack Name</strong>: The name of the stack to deploy to CloudFormation. This should be unique to your account and region, and a good starting point would be something matching your project name.</li>
+<li><strong>AWS Region</strong>: The AWS region you want to deploy your app to.</li>
+<li><strong>Confirm changes before deploy</strong>: If set to yes, any change sets will be shown to you before execution for manual review. If set to no, the AWS SAM CLI will automatically deploy application changes.</li>
+<li><strong>Allow SAM CLI IAM role creation</strong>: Many AWS SAM templates, including this example, create AWS IAM roles required for the AWS Lambda function(s) included to access AWS services. By default, these are scoped down to minimum required permissions. To deploy an AWS CloudFormation stack which creates or modified IAM roles, the <code>CAPABILITY_IAM</code> value for <code>capabilities</code> must be provided. If permission isn't provided through this prompt, to deploy this example you must explicitly pass <code>--capabilities CAPABILITY_IAM</code> to the <code>sam deploy</code> command.</li>
+<li><strong>Save arguments to samconfig.toml</strong>: If set to yes, your choices will be saved to a configuration file inside the project, so that in the future you can just re-run <code>sam deploy</code> without parameters to deploy changes to your application.</li>
+</ul>
+<p>The API Gateway endpoint API will be displayed in the outputs when the deployment is complete.</p>
+<h3 id="use-the-aws-sam-cli-to-build-and-test-locally">Use the AWS SAM CLI to build and test locally</h3>
+<p>Build your application by using the <code>sam build</code> command.</p>
+<pre><code class="language-bash"><div>my-application$ sam build
+</div></code></pre>
+<p>The AWS SAM CLI installs dependencies that are defined in <code>package.json</code>, creates a deployment package, and saves it in the <code>.aws-sam/build</code> folder.</p>
+<p>Test a single function by invoking it directly with a test event. An event is a JSON document that represents the input that the function receives from the event source. Test events are included in the <code>events</code> folder in this project.</p>
+<p>Run functions locally and invoke them with the <code>sam local invoke</code> command.</p>
+<pre><code class="language-bash"><div>my-application$ sam <span class="hljs-built_in">local</span> invoke putItemFunction --event events/event-post-item.json
+my-application$ sam <span class="hljs-built_in">local</span> invoke getAllItemsFunction --event events/event-get-all-items.json
+</div></code></pre>
+<p>The AWS SAM CLI can also emulate your application's API. Use the <code>sam local start-api</code> command to run the API locally on port 3000.</p>
+<pre><code class="language-bash"><div>my-application$ sam <span class="hljs-built_in">local</span> start-api
+my-application$ curl http://localhost:3000/
+</div></code></pre>
+<p>The AWS SAM CLI reads the application template to determine the API's routes and the functions that they invoke. The <code>Events</code> property on each function's definition includes the route and method for each path.</p>
+<pre><code class="language-yaml"><div>      <span class="hljs-attr">Events:</span>
+        <span class="hljs-attr">Api:</span>
+          <span class="hljs-attr">Type:</span> <span class="hljs-string">Api</span>
+          <span class="hljs-attr">Properties:</span>
+            <span class="hljs-attr">Path:</span> <span class="hljs-string">/</span>
+            <span class="hljs-attr">Method:</span> <span class="hljs-string">GET</span>
+</div></code></pre>
+<h3 id="add-a-resource-to-your-application">Add a resource to your application</h3>
+<p>The application template uses AWS SAM to define application resources. AWS SAM is an extension of AWS CloudFormation with a simpler syntax for configuring common serverless application resources, such as functions, triggers, and APIs. For resources that aren't included in the <a href="https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.html">AWS SAM specification</a>, you can use the standard <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS CloudFormation resource types</a>.</p>
+<p>Update <code>template.yml</code> to add a dead-letter queue to your application. In the <strong>Resources</strong> section, add a resource named <strong>MyQueue</strong> with the type <strong>AWS::SQS::Queue</strong>. Then add a property to the <strong>AWS::Serverless::Function</strong> resource named <strong>DeadLetterQueue</strong> that targets the queue's Amazon Resource Name (ARN), and a policy that grants the function permission to access the queue.</p>
+<pre><code><code><div>Resources:
+  MyQueue:
+    Type: AWS::SQS::Queue
+  getAllItemsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/get-all-items.getAllItemsHandler
+      Runtime: nodejs12.x
+      DeadLetterQueue:
+        Type: SQS
+        TargetArn: !GetAtt MyQueue.Arn
+      Policies:
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt MyQueue.QueueName
+</div></code></code></pre>
+<p>The dead-letter queue is a location for Lambda to send events that could not be processed. It's only used if you invoke your function asynchronously, but it's useful here to show how you can modify your application's resources and function configuration.</p>
+<p>Deploy the updated application.</p>
+<pre><code class="language-bash"><div>$ sam deploy
+</div></code></pre>
+<p>Open the <a href="https://console.aws.amazon.com/lambda/home#/applications"><strong>Applications</strong></a> page of the Lambda console, and choose your application. When the deployment completes, view the application resources on the <strong>Overview</strong> tab to see the new resource. Then, choose the function to see the updated configuration that specifies the dead-letter queue.</p>
+<h3 id="fetch-tail-and-filter-lambda-function-logs">Fetch, tail, and filter Lambda function logs</h3>
+<p>To simplify troubleshooting, the AWS SAM CLI has a command called <code>sam logs</code>. <code>sam logs</code> lets you fetch logs that are generated by your Lambda function from the command line. In addition to printing the logs on the terminal, this command has several nifty features to help you quickly find the bug.</p>
+<p><strong>NOTE:</strong> This command works for all Lambda functions, not just the ones you deploy using AWS SAM.</p>
+<pre><code class="language-bash"><div>my-application$ sam logs -n putItemFunction --stack-name sam-app --tail
+</div></code></pre>
+<p><strong>NOTE:</strong> This uses the logical name of the function within the stack. This is the correct name to use when searching logs inside an AWS Lambda function within a CloudFormation stack, even if the deployed function name varies due to CloudFormation's unique resource name generation.</p>
+<p>You can find more information and examples about filtering Lambda function logs in the <a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-logging.html">AWS SAM CLI documentation</a>.</p>
+<h3 id="unit-tests">Unit tests</h3>
+<p>Tests are defined in the <code>hello-world/tests</code> folder in this project. Use NPM to install the <a href="https://mochajs.org/">Mocha test framework</a> and run unit tests from your local machine.</p>
+<pre><code class="language-bash"><div>$ npm install
+$ npm run <span class="hljs-built_in">test</span>
+</div></code></pre>
+<h3 id="cleanup">Cleanup</h3>
+<p>To delete the sample application that you created, use the AWS CLI. Assuming you used your project name for the stack name, you can run the following:</p>
+<pre><code class="language-bash"><div>aws cloudformation delete-stack --stack-name sam-app-zip
+</div></code></pre>
+<h3 id="resources">Resources</h3>
+<p>For an introduction to the AWS SAM specification, the AWS SAM CLI, and serverless application concepts, see the <a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html">AWS SAM Developer Guide</a>.</p>
+<p>Next, you can use the AWS Serverless Application Repository to deploy ready-to-use apps that go beyond Hello World samples and learn how authors developed their applications. For more information, see the <a href="https://aws.amazon.com/serverless/serverlessrepo/">AWS Serverless Application Repository main page</a> and the <a href="https://docs.aws.amazon.com/serverlessrepo/latest/devguide/what-is-serverlessrepo.html">AWS Serverless Application Repository Developer Guide</a>.</p>
+
+    </body>
+    </html>
