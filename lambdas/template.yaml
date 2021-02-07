@@ -29,11 +29,10 @@ Resources:
   StockListFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/get-all-items.getAllItemsHandler
+      Handler: src/handlers/get-all-items.getAllItems
       Runtime: nodejs12.x
       MemorySize: 128
-      Timeout: 100
-      Description: A simple example includes a HTTP get method to get all items from a DynamoDB table.
+      Timeout: 10
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref StockTable
@@ -51,11 +50,10 @@ Resources:
   StockGetFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/get-by-id.getByIdHandler
+      Handler: src/handlers/get-by-id.getById
       Runtime: nodejs12.x
       MemorySize: 128
-      Timeout: 100
-      Description: A simple example includes a HTTP get method to get one item by id from a DynamoDB table.
+      Timeout: 10
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref StockTable
@@ -73,11 +71,10 @@ Resources:
   StockAddFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/put-item.putItemHandler
+      Handler: src/handlers/put-item.put
       Runtime: nodejs12.x
       MemorySize: 128
-      Timeout: 100
-      Description: A simple example includes a HTTP post method to add one item to a DynamoDB table.
+      Timeout: 10
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref StockTable
@@ -91,6 +88,27 @@ Resources:
             RestApiId: !Ref InvestCrudAPI
             Path: /
             Method: POST
+
+  StockDeleteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/delete-item.deleteById
+      Runtime: nodejs12.x
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref StockTable
+      Environment:
+        Variables:
+          SAMPLE_TABLE: !Ref StockTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref InvestCrudAPI
+            Path: /{id}
+            Method: DELETE
 
   # =-=: Dynamo :=-= #
   StockTable:

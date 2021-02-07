@@ -1,6 +1,6 @@
-import StockRepository from '../repository/dynamo/stock-repository'
+const StockRepository = require('../repository/dynamo/stock-repository')
 
-export default class StockService {
+class StockService {
   #paperRepository = new StockRepository()
 
   create(item) {
@@ -14,4 +14,10 @@ export default class StockService {
   getAll() {
     return this.#paperRepository.getAll()
   }
+
+  deleteById(id) {
+    return this.#paperRepository.deleteById(id)
+  }
 }
+
+module.exports = StockService

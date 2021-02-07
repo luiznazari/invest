@@ -1,12 +1,16 @@
-const { default: PaperBusiness } = require('../business/stock-business')
-const { default: LambdaResponses, HTTP_METHOD } = require('../utils/lambda-responses')
+const PaperBusiness = require('../business/stock-business')
+const { LambdaResponses, HTTP_METHOD } = require('../common/utils/lambda-responses')
 
 const paperBusiness = new PaperBusiness()
 
-exports.putItemHandler = async (event) => {
-  LambdaResponses.validateMethod(event, HTTP_METHOD.POST)
+exports.getAllItems = async (event) => {
+  try {
+    LambdaResponses.validateMethod(event, HTTP_METHOD.GET)
 
-  const items = await paperBusiness.findAll()
+    const items = await paperBusiness.findAll()
 
-  return LambdaResponses.success(items)
+    return LambdaResponses.success(items)
+  } catch (error) {
+    return LambdaResponses.error(error)
+  }
 }

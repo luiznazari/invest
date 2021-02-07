@@ -1,6 +1,6 @@
-import StockService from '../service/stock-service'
+const StockService = require('../service/stock-service')
 
-export default class StockBusiness {
+class StockBusiness {
   #paperService = new StockService()
 
   createPaper(paper) {
@@ -14,4 +14,10 @@ export default class StockBusiness {
   findAll() {
     return this.#paperService.getAll()
   }
+
+  deleteById(id) {
+    return this.#paperService.deleteById(id)
+  }
 }
+
+module.exports = StockBusiness

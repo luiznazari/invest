@@ -1,6 +1,6 @@
 const dynamodb = require('aws-sdk/clients/dynamodb')
 
-export default class StockRepository {
+class StockRepository {
   constructor() {
     this.docClient = new dynamodb.DocumentClient()
     this.tableName = process.env.STOCK_TABLE_NAME
@@ -30,4 +30,15 @@ export default class StockRepository {
     return this.docClient.get(params).promise()
       .then((data) => data.Item)
   }
+
+  deleteById(id) {
+    const params = {
+      TableName: this.tableName,
+      Key: { id }
+    }
+    return this.docClient.delete(params).promise()
+      .then((data) => data.$response)
+  }
 }
+
+module.exports = StockRepository

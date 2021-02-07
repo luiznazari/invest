@@ -1,4 +1,5 @@
-export default {
+/* eslint-disable no-console */
+module.exports = {
   debug(message) {
     this.info(message)
   },

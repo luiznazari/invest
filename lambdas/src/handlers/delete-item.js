@@ -3,15 +3,15 @@ const { LambdaResponses, HTTP_METHOD } = require('../common/utils/lambda-respons
 
 const paperBusiness = new PaperBusiness()
 
-exports.getById = async (event) => {
+exports.deleteById = async (event) => {
   try {
-    LambdaResponses.validateMethod(event, HTTP_METHOD.GET)
+    LambdaResponses.validateMethod(event, HTTP_METHOD.DELETE)
 
     const { id } = event.pathParameters
 
-    const item = await paperBusiness.findById(id)
+    const result = await paperBusiness.deleteById(id)
 
-    return LambdaResponses.success(item)
+    return LambdaResponses.success(result)
   } catch (error) {
     return LambdaResponses.error(error)
   }

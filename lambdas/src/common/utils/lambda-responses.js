@@ -1,20 +1,22 @@
-const { default: logger } = require('./logger')
+const ApiError = require('../exception/api-exception')
 
-export const HTTP_STATUS = {
+const logger = require('./logger')
+
+const HTTP_STATUS = {
   OK: 200,
   BAD_REQUEST: 400,
   METHOD_NOT_ALLOWED: 405,
   INTERNAL_ERROR: 500
 }
 
-export const HTTP_METHOD = {
+const HTTP_METHOD = {
   GET: 'GET',
   POST: 'POST',
   PUT: 'PUT',
   DELETE: 'DELETE'
 }
 
-export default class LambdaResponses {
+class LambdaResponses {
   static success(responseBody) {
     return {
       statusCode: HTTP_STATUS.OK,
@@ -43,10 +45,24 @@ export default class LambdaResponses {
     }
   }
 
+  static error(error) {
+    return {
+      statusCode: error instanceof ApiError ? error.statusCode : HTTP_STATUS.INTERNAL_ERROR,
+      body: error instanceof Error ? error.message : JSON.stringify(error)
+    }
+  }
+
   static validateMethod(event, method) {
     logger.debug(`Received: ${event}`)
     if (event.httpMethod !== method) {
       throw new Error(`postMethod only accepts POST method, you tried: ${event.httpMethod} method.`)
     }
   }
+}
+
+module.exports = {
+  HTTP_STATUS,
+  HTTP_METHOD,
+  LambdaResponses,
+  default: LambdaResponses
 }

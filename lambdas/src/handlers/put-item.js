@@ -1,15 +1,20 @@
-const { default: PaperBusiness } = require('../business/stock-business')
-const { default: LambdaResponses, HTTP_METHOD } = require('../utils/lambda-responses')
+const PaperBusiness = require('../business/stock-business')
+const { LambdaResponses, HTTP_METHOD } = require('../common/utils/lambda-responses')
+const SchemaValidator = require('../schema/schema-validator')
+const { StockMovement } = require('../schema/investment-movement')
 
 const paperBusiness = new PaperBusiness()
 
-exports.putItemHandler = async (event) => {
-  LambdaResponses.validateMethod(event, HTTP_METHOD.POST)
+exports.put = async (event) => {
+  try {
+    LambdaResponses.validateMethod(event, HTTP_METHOD.POST)
 
-  const body = JSON.parse(event.body)
+    SchemaValidator.validate(event.body, StockMovement.joiSchema())
+    const stock = StockMovement.fromRequestBody(event.body)
+    const result = await paperBusiness.createPaper(stock)
 
-  const result = await paperBusiness.createPaper(body)
-  body.result = result
-
-  return LambdaResponses.success(body)
+    return LambdaResponses.success(result)
+  } catch (error) {
+    return LambdaResponses.error(error)
+  }
 }
