@@ -12,6 +12,13 @@
     "ações"
   ],
   "scripts": {
+    "aws:install:lint": "pip install cfn-lint",
+    "aws:lint:template": "cfn-lint -t template.yaml & exit 0",
+    "aws:build": "sam build --profile invest_app_dev",
+    "aws:deploy": "sam deploy --profile invest_app_dev --guided",
+    "aws:deploy:full": "npm run aws:build && npm run aws:deploy",
+    "aws:set-profile": "setx AWS_PROFILE invest_app_dev",
+    "aws:clear-profile": "setx AWS_PROFILE \"\"",
     "lint": "eslint ./src/**/*.js --fix && eslint ./tests/**/*.js --fix",
     "test": "npm run test:u && npm run test:i",
     "test:u": "mocha ./test/unit/**/*.js",
