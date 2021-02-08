@@ -3,7 +3,7 @@ const dynamodb = require('aws-sdk/clients/dynamodb')
 class StockRepository {
   constructor() {
     this.docClient = new dynamodb.DocumentClient()
-    this.tableName = process.env.STOCK_TABLE_NAME
+    this.tableName = process.env.INVESTMENT_TABLE_NAME
   }
 
   save(item) {

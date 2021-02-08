@@ -1,29 +1,29 @@
 const { values } = require('./enum-utils')
 
 const INVESTMENT_TYPE = {
-  STOCKS: {
-    id: 'STOCKS',
-    name: 'Stocks'
+  STOCK: {
+    id: 'STOCK',
+    name: 'Stock'
   },
-  BONDS: {
-    id: 'BONDS',
-    name: 'Bonds'
+  BOND: {
+    id: 'BOND',
+    name: 'Bond'
   },
-  INVESTMENT_FUNDS: {
-    id: 'INVESTMENT_FUNDS',
-    name: 'Investment Funds'
+  INVESTMENT_FUND: {
+    id: 'INVESTMENT_FUND',
+    name: 'Investment Fund'
   },
-  BANK_PRODUCTS: {
-    id: 'BANK_PRODUCTS',
-    name: 'Bank Products'
+  BANK_PRODUCT: {
+    id: 'BANK_PRODUCT',
+    name: 'Bank Product'
   },
-  OPTIONS: {
-    id: 'OPTIONS',
-    name: 'Options'
+  OPTION: {
+    id: 'OPTION',
+    name: 'Option'
   },
-  ANNUITIES: {
-    id: 'ANNUITIES',
-    name: 'Annuities'
+  ANNUITIE: {
+    id: 'ANNUITIE',
+    name: 'Annuitie'
   },
   RETIREMENT: {
     id: 'RETIREMENT',
@@ -33,21 +33,21 @@ const INVESTMENT_TYPE = {
     id: 'SAVING_FOR_EDUCATION',
     name: 'Saving for Education'
   },
-  ALTERNATIVE_AND_COMPLEX_PRODUCTS: {
-    id: 'ALTERNATIVE_AND_COMPLEX_PRODUCTS',
-    name: 'Alternative and Complex Products'
+  ALTERNATIVE_AND_COMPLEX_PRODUCT: {
+    id: 'ALTERNATIVE_AND_COMPLEX_PRODUCT',
+    name: 'Alternative and Complex Product'
   },
-  CRYPTOCURRENCIES: {
-    id: 'CRYPTOCURRENCIES',
-    name: 'Initial Coin Offerings and Cryptocurrencies'
+  CRYPTOCURRENCY: {
+    id: 'CRYPTOCURRENCY',
+    name: 'Initial Coin Offerings and Cryptocurrency'
   },
-  COMMODITY_FUTURES: {
-    id: 'COMMODITY_FUTURES',
-    name: 'Commodity Futures'
+  COMMODITY_FUTURE: {
+    id: 'COMMODITY_FUTURE',
+    name: 'Commodity Future'
   },
-  SECURITY_FUTURES: {
-    id: 'SECURITY_FUTURES',
-    name: 'Security Futures'
+  SECURITY_FUTURE: {
+    id: 'SECURITY_FUTURE',
+    name: 'Security Future'
   },
   INSURANCE: {
     id: 'INSURANCE',

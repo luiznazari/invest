@@ -9,8 +9,8 @@ exports.put = async (event) => {
   try {
     LambdaResponses.validateMethod(event, HTTP_METHOD.POST)
 
-    SchemaValidator.validate(event.body, StockMovement.joiSchema())
-    const stock = StockMovement.fromRequestBody(event.body)
+    const investiment = SchemaValidator.validate(event.body, StockMovement.joiSchema())
+    const stock = StockMovement.fromRequestBody(investiment)
     const result = await paperBusiness.createPaper(stock)
 
     return LambdaResponses.success(result)

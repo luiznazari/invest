@@ -35,10 +35,10 @@ Resources:
       Timeout: 10
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref StockTable
+            TableName: !Ref InvestmentTable
       Environment:
         Variables:
-          SAMPLE_TABLE: !Ref StockTable
+          INVESTMENT_TABLE_NAME: !Ref InvestmentTable
       Events:
         Api:
           Type: Api
@@ -56,10 +56,10 @@ Resources:
       Timeout: 10
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref StockTable
+            TableName: !Ref InvestmentTable
       Environment:
         Variables:
-          SAMPLE_TABLE: !Ref StockTable
+          INVESTMENT_TABLE_NAME: !Ref InvestmentTable
       Events:
         Api:
           Type: Api
@@ -77,10 +77,10 @@ Resources:
       Timeout: 10
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref StockTable
+            TableName: !Ref InvestmentTable
       Environment:
         Variables:
-          SAMPLE_TABLE: !Ref StockTable
+          INVESTMENT_TABLE_NAME: !Ref InvestmentTable
       Events:
         Api:
           Type: Api
@@ -98,10 +98,10 @@ Resources:
       Timeout: 10
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref StockTable
+            TableName: !Ref InvestmentTable
       Environment:
         Variables:
-          SAMPLE_TABLE: !Ref StockTable
+          INVESTMENT_TABLE_NAME: !Ref InvestmentTable
       Events:
         Api:
           Type: Api
@@ -111,7 +111,7 @@ Resources:
             Method: DELETE
 
   # =-=: Dynamo :=-= #
-  StockTable:
+  InvestmentTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
       PrimaryKey:

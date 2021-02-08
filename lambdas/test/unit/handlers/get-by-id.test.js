@@ -7,7 +7,7 @@ describe('Test getByIdHandler', () => {
   let getSpy
 
   beforeEach(() => {
-    getSpy = sinon.stub(dynamodb.DocumentClient.prototype, 'scan')
+    getSpy = sinon.stub(dynamodb.DocumentClient.prototype, 'get')
   })
 
   afterEach(() => {

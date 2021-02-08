@@ -15,10 +15,10 @@ class SchemaValidator {
       }
     })
 
-    return requestBody
+    return JSON.parse(requestBody)
   }
 
-  static validate = (object) => new SchemaValidator().validate(object)
+  static validate = (object, schema) => new SchemaValidator(schema).validate(object)
 }
 
 module.exports = SchemaValidator

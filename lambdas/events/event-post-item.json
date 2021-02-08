@@ -1,4 +1,0 @@
-{
-    "httpMethod": "POST",
-    "body": "{\"tenant_id\": \"uuid\",\"id\": \"TLSA4\",\"operation_type\": \"B\",\"value\": 1.02,\"quantity\": 100,\"date_time\": \"2020-01-01T01:01:01\"}"
-}

@@ -2,6 +2,7 @@ const dynamodb = require('aws-sdk/clients/dynamodb')
 const { expect } = require('chai')
 const sinon = require('sinon')
 const lambda = require('../../../src/handlers/put-item.js')
+const putEventJson = require('../../mocks/events/event-post-item.json')
 
 describe('Test putItemHandler', () => {
   let putSpy
@@ -21,12 +22,7 @@ describe('Test putItemHandler', () => {
       promise: () => Promise.resolve(returnedItem)
     })
 
-    const event = {
-      httpMethod: 'POST',
-      body: '{"id": "id1","name": "name1"}'
-    }
-
-    const result = await lambda.put(event)
+    const result = await lambda.put(putEventJson)
     const expectedResult = {
       statusCode: 200,
       body: JSON.stringify(returnedItem)

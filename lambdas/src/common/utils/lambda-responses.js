@@ -1,3 +1,4 @@
+const { AssertionError } = require('chai')
 const ApiError = require('../exception/api-exception')
 
 const logger = require('./logger')
@@ -46,6 +47,9 @@ class LambdaResponses {
   }
 
   static error(error) {
+    if (error instanceof Error && !(error instanceof AssertionError)) {
+      logger.error(error.stack)
+    }
     return {
       statusCode: error instanceof ApiError ? error.statusCode : HTTP_STATUS.INTERNAL_ERROR,
       body: error instanceof Error ? error.message : JSON.stringify(error)
