@@ -1,4 +1,3 @@
-const { AssertionError } = require('chai')
 const ApiError = require('../exception/api-exception')
 
 const logger = require('./logger')
@@ -21,45 +20,48 @@ class LambdaResponses {
   static success(responseBody) {
     return {
       statusCode: HTTP_STATUS.OK,
-      body: JSON.stringify(responseBody)
+      body: responseBody
     }
   }
 
   static badRequest(responseBody) {
     return {
       statusCode: HTTP_STATUS.BAD_REQUEST,
-      body: JSON.stringify(responseBody)
+      body: responseBody
     }
   }
 
   static internalError(responseBody) {
     return {
       statusCode: HTTP_STATUS.INTERNAL_ERROR,
-      body: JSON.stringify(responseBody)
+      body: responseBody
     }
   }
 
   static methodNotAllowed(responseBody) {
     return {
       statusCode: HTTP_STATUS.METHOD_NOT_ALLOWED,
-      body: JSON.stringify(responseBody)
+      body: responseBody
     }
   }
 
   static error(error) {
-    if (error instanceof Error && !(error instanceof AssertionError)) {
+    if (error instanceof Error) {
       logger.error(error.stack)
     }
     return {
       statusCode: error instanceof ApiError ? error.statusCode : HTTP_STATUS.INTERNAL_ERROR,
-      body: error instanceof Error ? error.message : JSON.stringify(error)
+      body: {
+        message: error instanceof Error ? error.message : JSON.stringify(error)
+      }
     }
   }
 
   static validateMethod(event, method) {
-    logger.debug(`Received: ${event}`)
+    logger.debug(`Received: ${typeof event === 'object' ? JSON.stringify(event) : event}`)
     if (event.httpMethod !== method) {
-      throw new Error(`postMethod only accepts POST method, you tried: ${event.httpMethod} method.`)
+      throw new Error(`This function only accepts ${method} method`
+       + `, but got: ${event.httpMethod} method.`)
     }
   }
 }

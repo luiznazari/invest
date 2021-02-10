@@ -4,11 +4,13 @@ const OPERATION_TYPE = require('../common/enum/operation-type')
 const INVESTMENT_TYPE = require('../common/enum/investment-type')
 
 class StockMovement {
+  id
+
   tenant_id
 
   type
 
-  id
+  name
 
   operation_type
 
@@ -19,9 +21,10 @@ class StockMovement {
   date_time
 
   static fromRequestBody = (data) => Object.assign(new StockMovement(), {
+    id: data.id,
     tenant_id: data.tenant_id,
     type: data.type,
-    id: data.id,
+    name: data.name,
     operation_type: data.operation_type,
     value: data.value,
     quantity: data.quantity,
@@ -29,9 +32,10 @@ class StockMovement {
   })
 
   static joiSchema = () => Joi.object().keys({
+    id: Joi.string(),
     tenant_id: Joi.string().required(),
     type: Joi.string().valid(INVESTMENT_TYPE.values()).required(),
-    id: Joi.string().required(),
+    name: Joi.string().required(),
     operation_type: Joi.string().valid(OPERATION_TYPE.values()).required(),
     value: Joi.number().required(),
     quantity: Joi.number().required(),

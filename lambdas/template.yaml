@@ -68,10 +68,10 @@ Resources:
             Path: /{id}
             Method: GET
 
-  StockAddFunction:
+  StockCreateFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/put-item.put
+      Handler: src/handlers/save-item.create
       Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 10
@@ -88,6 +88,27 @@ Resources:
             RestApiId: !Ref InvestCrudAPI
             Path: /
             Method: POST
+
+  StockUpdateFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/save-item.update
+      Runtime: nodejs12.x
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref InvestmentTable
+      Environment:
+        Variables:
+          INVESTMENT_TABLE_NAME: !Ref InvestmentTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref InvestCrudAPI
+            Path: /{id}
+            Method: PUT
 
   StockDeleteFunction:
     Type: AWS::Serverless::Function

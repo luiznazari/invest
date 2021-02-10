@@ -3,8 +3,12 @@ const StockService = require('../service/stock-service')
 class StockBusiness {
   #paperService = new StockService()
 
-  createPaper(paper) {
-    return this.#paperService.create(paper)
+  create(investment) {
+    return this.#paperService.create(investment)
+  }
+
+  update(investment) {
+    return this.#paperService.update(investment)
   }
 
   findById(id) {

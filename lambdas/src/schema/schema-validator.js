@@ -9,9 +9,14 @@ class SchemaValidator {
   }
 
   validate(requestBody) {
+    if (!requestBody) {
+      // eslint-disable-next-line no-param-reassign
+      requestBody = {}
+    }
+
     Joi.validate(requestBody, this.schema, { locale: 'pt_BR' }, (err) => {
       if (err) {
-        throw new SchemaValidatiorException(err.details)
+        throw new SchemaValidatiorException(err)
       }
     })
 
