@@ -125,13 +125,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+.vscode
+
+package-lock.json
 
 # End of https://www.gitignore.io/api/osx,node,linux,windows
-
-# VSCode
-.vscode
-!.vscode/launch.json
-
-# AWS
-.aws-sam
-samconfig.toml

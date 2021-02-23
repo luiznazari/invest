@@ -1,0 +1,190 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  invest-app
+
+  Sample SAM Template for invest-app
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Parameters:
+  Stage:
+    Type: String
+  Version:
+    Type: String
+
+Resources:
+  # =-=: API :=-= #
+  InvestCrudAPI:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Auth:
+        DefaultAuthorizer: AuthorizationGatewayAuthorizerFunction
+        Authorizers:
+          AuthorizationGatewayAuthorizerFunction:
+            FunctionPayloadType: REQUEST
+            FunctionArn: !ImportValue 'v1-AuthorizationGatewayAuthorizer'
+            Identity:
+              Headers:
+                - 'X-Ivs-Session'
+              ReauthorizeEvery: 0
+            AuthorizerPayloadFormatVersion: 2.0
+            EnableSimpleResponses: true
+      # DefinitionBody:
+      #   openapi: 3.0.0
+      #   servers: []
+      #   info:
+      #     description: API CRUD do InvestApp
+      #     version: '1.0.0'
+      #     title: invest-app-api-crud
+      #     contact:
+      #       email: luiz.nazari.42@gmail.com
+      #     license:
+      #       name: Apache 2.0
+      #       url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+      #   tags:
+      #     - name: InvestApp
+      #       description: InvestApp CRUD API
+      #   security:
+      #     - authorizer: []
+      #   components:
+      #     securitySchemes:
+      #       authorizer:
+      #         type: apiKey
+      #         name: X-Ivs-Session
+      #         in: header
+      #         x-amazon-apigateway-authtype: custom
+      #         x-amazon-apigateway-authorizer:
+      #           type: REQUEST
+      #           authorizerUri:
+      #             Fn::Sub:
+      #               - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GlobalAuthorizer}/invocations'
+      #               - GlobalAuthorizer: !ImportValue 'v1-AuthorizationGatewayAuthorizer'
+      #           authorizerCredentials: !ImportValue ApiAuthorizationGatewayApiGatewayRoleARN
+      #           authorizerResultTtlInSeconds: 0
+
+  # =-=: LAMBDA :=-= #
+  StockListFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handler/get-all-items.getAllItems
+      Runtime: nodejs12.x
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref InvestmentTable
+      Environment:
+        Variables:
+          INVESTMENT_TABLE_NAME: !Ref InvestmentTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref InvestCrudAPI
+            Path: /v1/investments/
+            Method: GET
+
+  StockGetFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handler/get-by-id.getById
+      Runtime: nodejs12.x
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref InvestmentTable
+      Environment:
+        Variables:
+          INVESTMENT_TABLE_NAME: !Ref InvestmentTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref InvestCrudAPI
+            Path: /v1/investments/{id}
+            Method: GET
+
+  StockCreateFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handler/save-item.create
+      Runtime: nodejs12.x
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref InvestmentTable
+      Environment:
+        Variables:
+          INVESTMENT_TABLE_NAME: !Ref InvestmentTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref InvestCrudAPI
+            Path: /v1/investments/
+            Method: POST
+
+  StockUpdateFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handler/save-item.update
+      Runtime: nodejs12.x
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref InvestmentTable
+      Environment:
+        Variables:
+          INVESTMENT_TABLE_NAME: !Ref InvestmentTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref InvestCrudAPI
+            Path: /v1/investments/{id}
+            Method: PUT
+
+  StockDeleteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handler/delete-item.deleteById
+      Runtime: nodejs12.x
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref InvestmentTable
+      Environment:
+        Variables:
+          INVESTMENT_TABLE_NAME: !Ref InvestmentTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref InvestCrudAPI
+            Path: /v1/investments/{id}
+            Method: DELETE
+
+  # =-=: Dynamo :=-= #
+  InvestmentTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+Outputs:
+  WebEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${InvestCrudAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

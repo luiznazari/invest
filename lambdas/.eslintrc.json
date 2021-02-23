@@ -7,7 +7,9 @@
     "commonjs": true,
     "es2021": true
   },
-  "extends": ["airbnb-base"],
+  "extends": [
+    "airbnb-base"
+  ],
   "parserOptions": {
     "ecmaVersion": 12
   },
@@ -31,8 +33,21 @@
         "devDependencies": true
       }
     ],
-    "semi": ["error", "never"],
+    "semi": [
+      "error",
+      "never"
+    ],
     "linebreak-style": "off",
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "arrow-parens": [
+      "error",
+      "as-needed",
+      {
+        "requireForBlockBody": true
+      }
+    ]
   }
 }

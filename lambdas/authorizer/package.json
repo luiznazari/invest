@@ -1,0 +1,31 @@
+{
+  "name": "invest-api-authorization-gateway",
+  "version": "1.0.0",
+  "description": "This is a sample template for api-authorization-roles - Below is a brief explanation of what we have generated for you:",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luiznazari/invest.git"
+  },
+  "keywords": [],
+  "author": "luiz.nazari",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luiznazari/invest/issues"
+  },
+  "homepage": "https://github.com/luiznazari/invest#readme",
+  "scripts": {
+    "aws:install:lint": "pip install cfn-lint",
+    "aws:lint:template": "cfn-lint -t template.yaml & exit 0",
+    "aws:build": "sam build --profile invest_app_dev",
+    "aws:deploy": "sam deploy --profile invest_app_dev --guided",
+    "aws:deploy:full": "npm run aws:build && npm run aws:deploy",
+    "lint": "eslint ./src/**/*.js --fix && eslint ./tests/**/*.js --fix",
+    "test": "mocha './test/**/*.js'"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.605.0",
+    "chai": "^4.2.0",
+    "mocha": "^7.0.0",
+    "sinon": "^9.2.4"
+  }
+}

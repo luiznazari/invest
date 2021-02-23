@@ -1,7 +1,0 @@
-{
-    "httpMethod": "PUT",
-    "pathParameters": {
-      "id": "uuid"
-    },
-    "body": "{\"tenant_id\":\"d06b7ada-8991-4e2e-8c87-3cbfc4471d81\",\"type\":\"STOCK\",\"name\":\"TSL4\",\"operation_type\":\"BUY\",\"value\":1.02,\"quantity\":100,\"date_time\":\"2020-01-01T01:01:01\"}"
-}

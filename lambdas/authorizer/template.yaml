@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  api-authorization-gateway
+
+  Sample SAM Template for api-authorization-gateway
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  # =-=: AUTHORIZER CONFIGURATION :=-= #
+  AuthorizationGatewayAuthorizer:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: 'v1-AuthorizationGateway-Authorizer'
+      Handler: src/handler/authorizer.validateRequest
+      Runtime: nodejs12.x
+      MemorySize: 128
+      Timeout: 28
+      Role: 'arn:aws:iam::263617457603:role/ApiAuthorizationGatewayRole'
+      Environment:
+        Variables:
+          SESSION_TABLE_NAME: !Ref SessionTable
+
+  # =-=: Dynamo :=-= #
+  SessionTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+Outputs:
+  AuthorizationGatewayAuthorizer:
+    Value: !GetAtt AuthorizationGatewayAuthorizer.Arn
+    Description: 'Função responsável por validar acesso às APIs'
+    Export:
+      Name: 'v1-AuthorizationGatewayAuthorizer'
+  ApiAuthorizationGatewayApiGatewayRoleARN:
+    Value: 'arn:aws:iam::263617457603:role/ApiAuthorizationGatewayRole'
+    Description: 'Role de execução do autorizador das APIs'
+    Export:
+      Name: 'ApiAuthorizationGatewayApiGatewayRoleARN'

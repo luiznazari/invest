@@ -1,0 +1,45 @@
+{
+  "name": "invest-lambdas",
+  "version": "1.0.0",
+  "description": "Lambdas das ações do sistema invest",
+  "author": "luiz.nazari",
+  "license": "MIT",
+  "keywords": [
+    "invest",
+    "investimentos",
+    "cálculo",
+    "bolsa",
+    "ações"
+  ],
+  "scripts": {
+    "aws:install:lint": "pip install cfn-lint",
+    "aws:lint:template": "cfn-lint -t template.yaml & exit 0",
+    "aws:build": "sam build --profile invest_app_dev",
+    "aws:deploy": "sam deploy --profile invest_app_dev --guided",
+    "aws:deploy:full": "npm run aws:build && npm run aws:deploy",
+    "aws:set-profile": "setx AWS_PROFILE invest_app_dev",
+    "aws:clear-profile": "setx AWS_PROFILE \"\"",
+    "lint": "eslint ./src/**/*.js --fix && eslint ./tests/**/*.js --fix",
+    "test": "npm run test:u && npm run test:i",
+    "test:u": "mocha './test/unit/**/*.js'",
+    "test:i": "mocha './test/integration/**/*.js'"
+  },
+  "dependencies": {
+    "eslint": "^7.17.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "joi": "^14.3.1",
+    "joi-i18n": "^13.1.3",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.32",
+    "node-fetch": "^2.6.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.826.0",
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "sinon": "^9.2.3"
+  }
+}
