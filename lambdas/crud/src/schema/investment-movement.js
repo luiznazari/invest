@@ -32,7 +32,7 @@ class StockMovement {
   })
 
   static joiSchema = () => Joi.object().keys({
-    id: Joi.string(),
+    id: Joi.string().allow(null),
     tenant_id: Joi.string().required(),
     type: Joi.string().valid(INVESTMENT_TYPE.values()).required(),
     name: Joi.string().required(),

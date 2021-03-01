@@ -8,7 +8,7 @@ class StockService {
 
   async create(item) {
     if (item.id) {
-      throw new ApiError('Could not create item: non-unique id')
+      item.id = null;
     }
 
     const saveItem = {

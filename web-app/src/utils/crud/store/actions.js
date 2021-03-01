@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+const HTTP_OK = 200
+
 const actions = {
   // table data
   getItems ({ commit, getters, dispatch }) {
@@ -60,19 +62,19 @@ const actions = {
     return new Promise((resolve, reject) => {
       Vue.http.put(`${getters.path('u')}/${id}`, params)
         .then((response) => {
-          if (response.body.status === 0) {
+          if (response.status === HTTP_OK) {
             dispatch('openAlertBox', [
               'alertSuccess',
               successText,
             ], { root: true })
             dispatch('runItemsViewRefreshing')
             resolve()
-          } else if (response.body.status === -1) {
+          } else if (response.status === -1) {
             dispatch('openAlertBox', [
               'alertError',
               response.body.msg,
             ], { root: true })
-          } else if (response.body.status === -2) {
+          } else if (response.status === -2) {
             dispatch('openAlertBox', [
               'alertValidationError',
               response.body.msg,
@@ -81,7 +83,7 @@ const actions = {
         }, (error) => {
           dispatch('openAlertBox', [
             'alertError',
-            errorText,
+            error.body ? error.body.message : errorText,
           ], { root: true })
           reject(error)
         })
@@ -97,19 +99,19 @@ const actions = {
     return new Promise((resolve, reject) => {
       Vue.http.post(getters.path('st'), params)
         .then((response) => {
-          if (response.body.status === 0) {
+          if (response.status === HTTP_OK) {
             dispatch('openAlertBox', [
               'alertSuccess',
               successText,
             ], { root: true })
             dispatch('runItemsViewRefreshing')
             resolve()
-          } else if (response.body.status === -1) {
+          } else if (response.status === -1) {
             dispatch('openAlertBox', [
               'alertError',
               response.body.msg,
             ], { root: true })
-          } else if (response.body.status === -2) {
+          } else if (response.status === -2) {
             dispatch('openAlertBox', [
               'alertValidationError',
               response.body.msg,
@@ -125,7 +127,7 @@ const actions = {
         }, (error) => {
           dispatch('openAlertBox', [
             'alertError',
-            errorText,
+            error.body ? error.body.message : errorText,
           ], { root: true })
           reject(error)
         })
@@ -311,17 +313,17 @@ const actions = {
   ]) {
     Vue.http.put(`${getters.path('u')}/${id}`, params)
       .then((response) => {
-        if (response.body.status === 0) {
+        if (response.status === HTTP_OK) {
           dispatch('openAlertBox', [
             'alertSuccess',
             successText,
           ], { root: true })
-        } else if (response.body.status === -1) {
+        } else if (response.status === -1) {
           dispatch('openAlertBox', [
             'alertError',
             response.body.msg,
           ], { root: true })
-        } else if (response.body.status === -2) {
+        } else if (response.status === -2) {
           dispatch('openAlertBox', [
             'alertValidationError',
             response.body.msg,
@@ -331,7 +333,7 @@ const actions = {
       }, (error) => {
         dispatch('openAlertBox', [
           'alertError',
-          error.statusText,
+          error.body ? error.body.message : error.statusText,
         ], { root: true })
       })
   },
@@ -347,18 +349,18 @@ const actions = {
     return new Promise((resolve, reject) => {
       Vue.http.put(`${path}/${id}`, params)
         .then((response) => {
-          if (response.body.status === 0) {
+          if (response.status === HTTP_OK) {
             dispatch('openAlertBox', [
               'alertSuccess',
               successText,
             ], { root: true })
             resolve()
-          } else if (response.body.status === -1) {
+          } else if (response.status === -1) {
             dispatch('openAlertBox', [
               'alertError',
               response.body.msg,
             ], { root: true })
-          } else if (response.body.status === -2) {
+          } else if (response.status === -2) {
             dispatch('openAlertBox', [
               'alertValidationError',
               response.body.msg,
@@ -384,17 +386,17 @@ const actions = {
   ]) {
     Vue.http.delete(`${path}/${id}`)
       .then((response) => {
-        if (response.body.status === 0) {
+        if (response.status === HTTP_OK) {
           dispatch('openAlertBox', [
             'alertSuccess',
             successText,
           ], { root: true })
-        } else if (response.body.status === -1) {
+        } else if (response.status === -1) {
           dispatch('openAlertBox', [
             'alertError',
             response.body.msg,
           ], { root: true })
-        } else if (response.body.status === -2) {
+        } else if (response.status === -2) {
           dispatch('openAlertBox', [
             'alertValidationError',
             response.body.msg,
@@ -418,18 +420,18 @@ const actions = {
     return new Promise((resolve, reject) => {
       Vue.http.post(path, params)
         .then((response) => {
-          if (response.body.status === 0) {
+          if (response.status === HTTP_OK) {
             dispatch('openAlertBox', [
               'alertSuccess',
               successText,
             ], { root: true })
             resolve()
-          } else if (response.body.status === -1) {
+          } else if (response.status === -1) {
             dispatch('openAlertBox', [
               'alertError',
               response.body.msg,
             ], { root: true })
-          } else if (response.body.status === -2) {
+          } else if (response.status === -2) {
             dispatch('openAlertBox', [
               'alertValidationError',
               response.body.msg,
