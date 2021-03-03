@@ -1,19 +1,14 @@
+const HTTP_STATUS = require('../enum/http-status')
 const ApiError = require('../exception/api-exception')
 
 const logger = require('./logger')
-
-const HTTP_STATUS = {
-  OK: 200,
-  BAD_REQUEST: 400,
-  METHOD_NOT_ALLOWED: 405,
-  INTERNAL_ERROR: 500
-}
 
 const HTTP_METHOD = {
   GET: 'GET',
   POST: 'POST',
   PUT: 'PUT',
-  DELETE: 'DELETE'
+  DELETE: 'DELETE',
+  OPTIONS: 'OPTIONS'
 }
 
 class LambdaResponses {

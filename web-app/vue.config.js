@@ -3,7 +3,7 @@ module.exports = {
   devServer: {
     proxy: {
       '^/Prod': {
-        target: 'https://a3jqydaf57.execute-api.us-east-1.amazonaws.com/',
+        target: 'https://l1i8gyk48c.execute-api.us-east-1.amazonaws.com/',
         ws: true,
         changeOrigin: true,
         headers: {

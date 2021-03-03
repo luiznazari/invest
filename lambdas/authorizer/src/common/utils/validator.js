@@ -2,7 +2,7 @@ const HEADER = require('../../enum/header-enum')
 
 module.exports.validateHeader = async (event) => {
   const objHeader = {
-    session: event.headers[HEADER.SESSION]
+    session: event.headers[HEADER.SESSION] || event.headers[HEADER.SESSION.toLocaleLowerCase()]
   }
 
   if (!!objHeader.session === false) {

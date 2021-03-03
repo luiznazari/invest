@@ -9,7 +9,8 @@ import './plugins/custom/'
 import App from './App.vue'
 
 Vue.http.interceptors.push((request, next) => {
-  request.headers.set('X-Ivs-Session', process.env.SESSION_TOKEN)
+  const sessionToken = process.env.SESSION_TOKEN || sessionStorage.getItem('ivs-session-token') || ''
+  request.headers.set('X-Ivs-Session', sessionToken)
 
   if (localStorage.getItem('token')) {
     request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'))

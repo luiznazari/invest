@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "invest-app-website"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1jxmys71m1wrj"
+s3_prefix = "invest-app-website"
+region = "us-east-1"
+profile = "invest_app_dev"
+capabilities = "CAPABILITY_IAM"

@@ -34,6 +34,12 @@ Resources:
               ReauthorizeEvery: 0
             AuthorizerPayloadFormatVersion: 2.0
             EnableSimpleResponses: true
+        AddDefaultAuthorizerToCorsPreflight: false
+      Cors:
+        AllowHeaders: "'*'"
+        AllowMethods: "'OPTIONS,POST,PUT,GET,DELETE'"
+        AllowOrigin: "'*'"
+        MaxAge: "'600'"
       # DefinitionBody:
       #   openapi: 3.0.0
       #   servers: []

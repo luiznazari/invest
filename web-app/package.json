@@ -5,6 +5,10 @@
   "author": "Luiz Felipe Nazari <luiz.nazari.42@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "aws:install:lint": "pip install cfn-lint",
+    "aws:lint:template": "cfn-lint -t template.yaml & exit 0",
+    "aws:deploy": "sam deploy --profile invest_app_dev --guided",
+    "aws:deploy:full": "npm run buid && npm run aws:deploy",
     "start": "npm run serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
